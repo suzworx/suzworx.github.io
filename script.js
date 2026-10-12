@@ -1,11 +1,11 @@
 const bios = {
   brief: [
-    "I’m Sujeet, a staff software engineer focused on distributed systems, developer platforms, and AI-assisted engineering workflows.",
+    "I’m Sujeet, a staff software engineer focused on distributed systems, developer platforms, and AI-assisted engineering workflows. I’m currently building voice agents.",
     "I build reliable systems that help teams move faster without sacrificing correctness."
   ],
   long: [
     "I’m Sujeet, a staff software engineer who builds and scales platforms from zero to one. My work spans distributed systems, event-driven architecture, integrations, observability, and release engineering.",
-    "I currently focus on AI-assisted developer workflows and reliable systems that help teams move faster without sacrificing correctness."
+    "I’m currently building voice agents and reliable systems that help teams move faster without sacrificing correctness."
   ]
 };
 
