@@ -1,4 +1,4 @@
-// Notes page: reads notes.md (each note starts with a "## YYYY-MM-DD" line),
+// Notes tab: reads notes.md (each note starts with a "## YYYY-MM-DD" line),
 // lists every note on a timeline and shows the one in the URL hash (newest by default).
 const escapeHtml = (text) => text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const inline = (text) =>
@@ -47,36 +47,43 @@ const timeline = document.querySelector("#timeline");
 const reader = document.querySelector("#note");
 let notes = [];
 let ids = [];
+let loading = null;
 
-function show() {
-  const wanted = decodeURIComponent(location.hash.slice(1));
-  const index = Math.max(0, ids.indexOf(wanted));
+/** Shows the note named in the hash, or the newest one. */
+function showNote() {
+  if (!notes.length) return;
+  const index = Math.max(0, ids.indexOf(decodeURIComponent(location.hash.slice(1))));
   const note = notes[index];
   reader.innerHTML = `<p class="note-date">${escapeHtml(dateLabel(note.date))}</p>${note.paragraphs.map((p) => `<p>${inline(p)}</p>`).join("")}`;
   timeline.querySelectorAll("a").forEach((link, i) => {
     if (i === index) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
-  document.title = `${preview(note)} | Notes`;
 }
 
-const load = (url) => fetch(url, { cache: "no-cache" }).then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))));
-// Opened from disk or mid-deploy: fall back to the published copy.
-load("notes.md")
-  .catch(() => load("https://suzworx.github.io/notes.md"))
-  .then((markdown) => {
-    notes = parseNotes(markdown);
-    if (!notes.length) {
-      reader.innerHTML = "<p>No notes yet. Thinking.</p>";
-      return;
-    }
-    ids = noteIds(notes);
-    timeline.innerHTML = notes
-      .map((note, i) => `<li><a href="#${ids[i]}"><time datetime="${escapeHtml(note.date)}">${escapeHtml(dateLabel(note.date))}</time><span>${escapeHtml(preview(note))}</span></a></li>`)
-      .join("");
-    show();
-    window.addEventListener("hashchange", show);
-  })
-  .catch(() => {
-    reader.innerHTML = '<p>Couldn’t load notes. <a href="notes.md">Read notes.md</a>.</p>';
-  });
+/** Loads notes.md once and fills the timeline; resolves when ready. */
+function loadNotes() {
+  if (loading) return loading;
+  const load = (url) => fetch(url, { cache: "no-cache" }).then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))));
+  // Opened from disk or mid-deploy: fall back to the published copy.
+  loading = load("notes.md")
+    .catch(() => load("https://suzworx.github.io/notes.md"))
+    .then((markdown) => {
+      notes = parseNotes(markdown);
+      const count = document.querySelector("#notes-count");
+      if (count) count.textContent = `${notes.length} ${notes.length === 1 ? "note" : "notes"}`;
+      if (!notes.length) {
+        reader.innerHTML = "<p>No notes yet. Thinking.</p>";
+        return;
+      }
+      ids = noteIds(notes);
+      timeline.innerHTML = notes
+        .map((note, i) => `<li><a href="#${ids[i]}"><time datetime="${escapeHtml(note.date)}">${escapeHtml(dateLabel(note.date))}</time><span>${escapeHtml(preview(note))}</span></a></li>`)
+        .join("");
+    })
+    .catch(() => {
+      loading = null;
+      reader.innerHTML = '<p>Couldn’t load notes. <a href="notes.md">Read notes.md</a>.</p>';
+    });
+  return loading;
+}

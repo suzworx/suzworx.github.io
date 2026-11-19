@@ -2,7 +2,7 @@
 
 Personal site for [@suzworx](https://github.com/suzworx), built as a dependency-free static site for GitHub Pages.
 
-Serve the directory with any static file server (`python3 -m http.server`); the notes page (notes.html) fetches `notes.md`, so it does not work from `file://`.
+Serve the directory with any static file server (`python3 -m http.server`); the Notes tab on the home page fetches `notes.md`, so it does not work from `file://`.
 
 ## Adding a note
 

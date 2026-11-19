@@ -1,6 +1,6 @@
 <!doctype html>
 <meta charset="UTF-8" />
 <title>Moved to Notes</title>
-<script>location.replace("notes.html" + (location.hash === "#feed" ? "" : location.hash));</script>
-<meta http-equiv="refresh" content="0; url=notes.html" />
-<p>The feed is now <a href="notes.html">Notes</a>.</p>
+<script>location.replace("./" + (location.hash && location.hash !== "#feed" ? location.hash : "#notes"));</script>
+<meta http-equiv="refresh" content="0; url=./#notes" />
+<p>The feed is now <a href="./#notes">Notes</a>.</p>

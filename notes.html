@@ -1,51 +1,6 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#191a1c" media="(prefers-color-scheme: dark)" />
-    <meta name="description" content="Short notes from Sujeet." />
-    <title>Notes | Sujeet</title>
-    <link rel="icon" href="assets/temple-favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/temple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css?v=5" />
-    <script>
-      document.documentElement.dataset.theme = localStorage.getItem("theme") || "system";
-    </script>
-  </head>
-  <body>
-    <main class="site-shell">
-      <article class="content-frame notes-frame">
-        <header class="title-row">
-          <h1><a href="./">Sujeet</a></h1>
-          <nav class="top-nav" aria-label="Site">
-            <a href="./">Home</a>
-            <a href="notes.html" aria-current="page">Notes</a>
-            <button class="theme-toggle" type="button" aria-label="Change color theme" title="Change color theme">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
-            </button>
-          </nav>
-        </header>
-
-        <div class="notes-layout">
-          <nav class="timeline-panel" aria-label="Notes timeline">
-            <h2>Notes</h2>
-            <ol id="timeline" class="timeline"></ol>
-          </nav>
-          <section id="note" class="note-reader" aria-live="polite">
-            <noscript><p>Notes need JavaScript. Read them in <a href="notes.md">notes.md</a>.</p></noscript>
-          </section>
-        </div>
-
-        <footer>
-          <a href="./">Home</a>
-          <a href="https://github.com/suzworx" target="_blank" rel="noreferrer">GitHub</a>
-          <span>Opinions are mine, typos too.</span>
-        </footer>
-      </article>
-    </main>
-    <script src="script.js?v=5"></script>
-    <script src="notes.js?v=5"></script>
-  </body>
-</html>
+<meta charset="UTF-8" />
+<title>Notes | Sujeet</title>
+<script>location.replace("./" + (location.hash || "#notes"));</script>
+<meta http-equiv="refresh" content="0; url=./#notes" />
+<p>Notes are on the <a href="./#notes">home page</a>.</p>
