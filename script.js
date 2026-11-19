@@ -13,6 +13,11 @@ const bioContent = document.querySelector("#bio-content");
 document.querySelectorAll("[data-bio]").forEach((button) => {
   button.addEventListener("click", () => {
     document.querySelectorAll("[data-bio]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+    if (button.dataset.bio === "feed") {
+      bioContent.replaceChildren();
+      renderFeed(bioContent, { limit: 3 });
+      return;
+    }
     bioContent.replaceChildren(...bios[button.dataset.bio].map((text) => Object.assign(document.createElement("p"), { textContent: text })));
   });
 });

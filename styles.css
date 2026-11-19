@@ -10,3 +10,4 @@ html[data-theme="dark"]{--bg:#191a1c;--copy:#e8e6e0;--heading:#f7f5ef;--muted:#a
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 .facts-list{columns:1}
 .note-list{margin-top:.4rem}.note{padding:1.1rem 0 1rem;border-bottom:1px solid var(--line)}.note p{margin:0 0 .7rem}.note p:last-of-type{margin-bottom:.5rem}.note code{font:.88em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel);padding:.1em .35em;border-radius:4px}.note a{color:var(--copy);text-underline-offset:.2em}.note .note-date{color:var(--muted);font:13px/1.4 var(--ui);text-decoration:none}.note .note-date:hover{color:var(--copy)}.note:target{background:linear-gradient(90deg,var(--panel),transparent)}
+.feed-more{margin:1rem 0 0;font:14px/1.4 var(--ui)}.feed-more a{color:var(--copy);text-underline-offset:.2em}#bio-content .note:first-child{padding-top:0}
