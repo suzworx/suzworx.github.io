@@ -1,11 +1,11 @@
 const bios = {
   brief: [
-    "I’m Sujeet, a staff software engineer who builds distributed systems, developer platforms, and voice agents.",
-    "I care about simple design, reliable systems, and tools that help teams move faster."
+    "I’m Sujeet. I build software, mostly voice assistants and developer tools.",
+    "I like simple things that work, and deleting more code than I write."
   ],
   long: [
-    "I’m Sujeet, a staff software engineer with experience building platforms from the ground up. My work includes distributed systems, event driven architecture, integrations, observability, and release engineering.",
-    "Right now, I’m building voice agents and reliable tools that help teams move faster."
+    "I’m Sujeet. I build software from the ground up: platforms, integrations, systems that keep running at 3 a.m., and lately voice assistants that talk back (politely, mostly).",
+    "I like simple designs, tools that help people move faster, and the quiet joy of a green build."
   ]
 };
 
