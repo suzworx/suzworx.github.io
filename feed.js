@@ -39,8 +39,10 @@ function dateLabel(date) {
 
 /** Fills `target` with posts from feed.md. `limit` shows only the newest N plus a link to the full feed. */
 function renderFeed(target, { limit } = {}) {
-  return fetch("feed.md", { cache: "no-cache" })
-    .then((response) => (response.ok ? response.text() : Promise.reject(new Error(String(response.status)))))
+  const load = (url) => fetch(url, { cache: "no-cache" }).then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))));
+  // Opened from disk or mid-deploy: fall back to the published copy.
+  return load("feed.md")
+    .catch(() => load("https://suzworx.github.io/feed.md"))
     .then((markdown) => {
       const posts = parseFeed(markdown);
       if (!posts.length) {
