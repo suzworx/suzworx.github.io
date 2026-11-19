@@ -1,6 +1,6 @@
-# Feed
+# Notes
 
-Short posts, newest first. To add one, put a new `## YYYY-MM-DD` line at the
+Short notes, newest first. To add one, put a new `## YYYY-MM-DD` line at the
 top of the list and write underneath it. A blank line starts a new paragraph.
 
 ## 2026-11-18
