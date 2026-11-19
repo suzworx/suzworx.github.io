@@ -1,42 +1,6 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#191a1c" media="(prefers-color-scheme: dark)" />
-    <meta name="description" content="Short posts and thoughts from Sujeet." />
-    <title>Feed | Sujeet</title>
-    <link rel="icon" href="assets/temple-favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/temple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css" />
-    <script>
-      document.documentElement.dataset.theme = localStorage.getItem("theme") || "system";
-    </script>
-  </head>
-  <body>
-    <main class="site-shell">
-      <article class="content-frame">
-        <header class="title-row">
-          <h1><a href="./">Sujeet</a></h1>
-          <button class="theme-toggle" type="button" aria-label="Change color theme" title="Change color theme">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
-          </button>
-        </header>
-
-        <div class="section-bar"><span>Feed</span><span>short posts, newest first</span></div>
-        <div id="feed" class="note-list" aria-live="polite">
-          <noscript><p>The feed needs JavaScript. Read it in <a href="feed.md">feed.md</a>.</p></noscript>
-        </div>
-
-        <footer>
-          <a href="./">Home</a>
-          <a href="https://github.com/suzworx" target="_blank" rel="noreferrer">GitHub</a>
-          <span>Opinions are mine, typos too.</span>
-        </footer>
-      </article>
-    </main>
-    <script src="script.js"></script>
-    <script src="feed.js"></script>
-  </body>
-</html>
+<meta charset="UTF-8" />
+<title>Moved to the Feed tab</title>
+<script>location.replace("./" + (location.hash || "#feed"));</script>
+<meta http-equiv="refresh" content="0; url=./#feed" />
+<p>The feed now lives on the <a href="./#feed">home page</a>.</p>

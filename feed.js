@@ -1,5 +1,5 @@
 // Renders feed.md: each post starts with a "## YYYY-MM-DD" line; text before the first one is ignored.
-// Used by feed.html (all posts) and the Feed tab on the home page (latest few).
+// Shown in the Feed tab of the home bio; a post's date links to /#<date>.
 const escapeHtml = (text) => text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const inline = (text) =>
   escapeHtml(text)
@@ -37,8 +37,8 @@ function dateLabel(date) {
   return Number.isNaN(parsed.getTime()) ? date : parsed.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
-/** Fills `target` with posts from feed.md. `limit` shows only the newest N plus a link to the full feed. */
-function renderFeed(target, { limit } = {}) {
+/** Fills `target` with every post from feed.md; resolves once rendered. */
+function renderFeed(target) {
   const load = (url) => fetch(url, { cache: "no-cache" }).then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))));
   // Opened from disk or mid-deploy: fall back to the published copy.
   return load("feed.md")
@@ -50,21 +50,11 @@ function renderFeed(target, { limit } = {}) {
         return;
       }
       const ids = postIds(posts);
-      const shown = limit ? posts.slice(0, limit) : posts;
-      target.innerHTML =
-        shown
-          .map((post, i) => {
-            const id = ids[i];
-            const href = limit ? `feed.html#${id}` : `#${id}`;
-            return `<article class="note"${limit ? "" : ` id="${id}"`}>${post.paragraphs.map((p) => `<p>${inline(p)}</p>`).join("")}<a class="note-date" href="${href}">${escapeHtml(dateLabel(post.date))}</a></article>`;
-          })
-          .join("") + (limit ? '<p class="feed-more"><a href="feed.html">See the full feed →</a></p>' : "");
-      if (!limit && location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+      target.innerHTML = posts
+        .map((post, i) => `<article class="note" id="${ids[i]}">${post.paragraphs.map((p) => `<p>${inline(p)}</p>`).join("")}<a class="note-date" href="#${ids[i]}">${escapeHtml(dateLabel(post.date))}</a></article>`)
+        .join("");
     })
     .catch(() => {
       target.innerHTML = '<p>Couldn’t load the feed. <a href="feed.md">Read feed.md</a>.</p>';
     });
 }
-
-const fullFeed = document.querySelector("#feed");
-if (fullFeed) renderFeed(fullFeed);

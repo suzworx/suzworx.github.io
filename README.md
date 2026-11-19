@@ -2,7 +2,7 @@
 
 Personal site for [@suzworx](https://github.com/suzworx), built as a dependency-free static site for GitHub Pages.
 
-Serve the directory with any static file server (`python3 -m http.server`); the feed (feed.html and the Feed tab on the home page) fetches `feed.md`, so it does not work from `file://`.
+Serve the directory with any static file server (`python3 -m http.server`); the Feed tab on the home page fetches `feed.md`, so it does not work from `file://`.
 
 ## Posting to the feed
 

@@ -10,17 +10,39 @@ const bios = {
 };
 
 const bioContent = document.querySelector("#bio-content");
-document.querySelectorAll("[data-bio]").forEach((button) => {
+const bioButtons = document.querySelectorAll("[data-bio]");
+// "#feed" or a post date ("#2026-11-18", "#2026-11-18-2") opens the Feed tab.
+const feedHash = (hash) => hash === "#feed" || /^#\d{4}-\d{2}-\d{2}(-\d+)?$/.test(hash);
+
+function showBio(view) {
+  bioButtons.forEach((item) => item.setAttribute("aria-pressed", String(item.dataset.bio === view)));
+  if (view === "feed") {
+    bioContent.replaceChildren();
+    return renderFeed(bioContent);
+  }
+  bioContent.replaceChildren(...bios[view].map((text) => Object.assign(document.createElement("p"), { textContent: text })));
+  return Promise.resolve();
+}
+
+function openFromHash() {
+  if (!feedHash(location.hash)) return;
+  showBio("feed").then(() => {
+    const post = location.hash !== "#feed" && document.getElementById(location.hash.slice(1));
+    (post || bioContent).scrollIntoView();
+  });
+}
+
+bioButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    document.querySelectorAll("[data-bio]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
-    if (button.dataset.bio === "feed") {
-      bioContent.replaceChildren();
-      renderFeed(bioContent, { limit: 3 });
-      return;
-    }
-    bioContent.replaceChildren(...bios[button.dataset.bio].map((text) => Object.assign(document.createElement("p"), { textContent: text })));
+    const view = button.dataset.bio;
+    history.replaceState(null, "", view === "feed" ? "#feed" : location.pathname);
+    showBio(view);
   });
 });
+window.addEventListener("hashchange", () => {
+  if (feedHash(location.hash) && !document.getElementById(location.hash.slice(1))?.closest("#bio-content")) openFromHash();
+});
+openFromHash();
 
 const themeButton = document.querySelector(".theme-toggle");
 themeButton.addEventListener("click", () => {
